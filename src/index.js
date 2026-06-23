@@ -33,7 +33,14 @@ export default {
       try {
         const res = await fetch(targetUrl, {
           method: "GET",
-          headers: HEADERS,
+          headers: {
+            "User-Agent": "curl/8.15.0",
+            "Accept": "*/*"
+          },
+          // TRIK UTAMA: Paksa DNS Cloudflare mengarah ke IP pilihan kita
+          cf: {
+            resolveOverride: MEGOGO_IP
+          },
           redirect: "follow"
         });
 
