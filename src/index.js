@@ -27,7 +27,12 @@ export default {
       const targetUrl = `http://vzagut73.megogo.xyz${subpath}${url.search}`;
 
       try {
-        const res = await fetch(targetUrl, { headers: HEADERS });
+        const res = await fetch(targetUrl, {
+          method: "GET",
+          headers: HEADERS,
+          redirect: "follow"
+        });
+
         if (res.status !== 200) {
           return new Response(res.statusText, { status: res.status, headers: corsHeaders });
         }
