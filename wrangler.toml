@@ -1,3 +1,6 @@
 name = "iptv-worker"
 main = "src/index.js"
 compatibility_date = "2024-01-01"
+[observability.logs]
+enabled = false
+invocation_logs = true
