@@ -24,7 +24,7 @@ export default {
     // 1. PROXY PLAYLIST M3U8 (/proxy-iptv/...)
     if (pathname.startsWith("/proxy-iptv/")) {
       const subpath = pathname.replace("/proxy-iptv/", "");
-      const targetUrl = `http://vzagut73.megogo.xyz{subpath}${url.search}`;
+      const targetUrl = `http://vzagut73.megogo.xyz${subpath}${url.search}`;
 
       try {
         const res = await fetch(targetUrl, { headers: HEADERS });
