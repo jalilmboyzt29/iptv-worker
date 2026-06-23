@@ -1,6 +1,10 @@
+const MEGOGO_IP = "103.163.132.53";
+const ORIGINAL_HOST = "vzagut73.megogo.xyz";
+
 const HEADERS = {
   "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-  "Referer": "http://vzagut73.megogo.xyz/"
+  "Referer": `http://${ORIGINAL_HOST}/`,
+  "Host": ORIGINAL_HOST
 };
 
 export default {
