@@ -72,10 +72,11 @@ export default {
         const res = await fetch(tsUrl, {
           method: "GET",
           headers: {
+            "Host": targetIp, // Mengirimkan IP mentah sebagai Host seperti suksesnya curl Anda
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            // PERBAIKAN MANIPULASI HEADER:
-            "Host": targetIp,                       // Paksa Host sesuai dengan IP tujuan segmen video
-            "Referer": `http://${targetIp}/iptv/`    // Sesuaikan Referer murni ke server streaming langsung
+            "Accept": "*/*",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Connection": "keep-alive"
           },
           redirect: "follow"
         });
@@ -85,7 +86,7 @@ export default {
           headers: {
             ...corsHeaders,
             "Content-Type": "video/mp2t",
-            "Cache-Control": "public, max-age=3600"
+            "Cache-Control": "no-cache, no-store, must-revalidate"
           }
         });
       } catch (err) {
