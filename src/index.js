@@ -21,12 +21,12 @@ export default {
 
     // 1. PROXY PLAYLIST M3U8 (Membaca jalur /iptv/ secara utuh)
     if (pathname.startsWith("/iptv/")) {
-      
+
       // LANGSUNG DIABGUNGKAN: http://megogo.xyz + /iptv/5WS4WSUFCCHGQF/6124/index.m3u8
       const targetUrl = `http://vzagut73.megogo.xyz${pathname}${url.search}`;
 
       try {
-        const res = await fetch(targetUrl, { 
+        const res = await fetch(targetUrl, {
           method: "GET",
           headers: HEADERS,
           redirect: "follow"
@@ -59,7 +59,7 @@ export default {
     // 2. PROXY SEGMENT VIDEO TS
     if (pathname.startsWith("/proxy-ts/")) {
       const match = pathname.match(/^\/proxy-ts\/([^\/]+)\/iptv\/(.+)$/);
-      
+
       if (!match) {
         return new Response("Invalid proxy-ts path format", { status: 400, headers: corsHeaders });
       }
@@ -69,9 +69,14 @@ export default {
       const tsUrl = `http://${targetIp}/iptv/${tsPath}${url.search}`;
 
       try {
-        const res = await fetch(tsUrl, { 
+        const res = await fetch(tsUrl, {
           method: "GET",
-          headers: HEADERS,
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            // PERBAIKAN MANIPULASI HEADER:
+            "Host": targetIp,                       // Paksa Host sesuai dengan IP tujuan segmen video
+            "Referer": `http://${targetIp}/iptv/`    // Sesuaikan Referer murni ke server streaming langsung
+          },
           redirect: "follow"
         });
 
