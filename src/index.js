@@ -40,8 +40,8 @@ export default {
 
         // Mengubah semua link streaming IP asli menjadi link proxy-ts Worker Anda
         const contentModified = content.replace(
-          /http:\/\/([^\/]+)\/iptv\//g,
-          `https://${host}/proxy-ts/$1/iptv/`
+          /http:\/\/([^\/]+)\/iptv\/([^\?\s]+)\?md5=([^\s\r\n]+)/g,
+          `https://${host}/proxy-ts/$1/iptv/$2?md5=$3`
         );
 
         return new Response(contentModified, {
@@ -60,7 +60,7 @@ export default {
     if (pathname.startsWith("/proxy-ts/")) {
       const match = pathname.match(/^\/proxy-ts\/([^\/]+)\/iptv\/(.+)$/);
 
-      if (!match) {
+       if (!match) {
         return new Response("Invalid proxy-ts path format", { status: 400, headers: corsHeaders });
       }
 
